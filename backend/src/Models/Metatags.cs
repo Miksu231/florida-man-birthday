@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace FloridaMan;
+namespace FloridaMan.Models;
 
 public record Metatags
 {

@@ -1,10 +1,8 @@
-using Newtonsoft.Json;
-
-namespace FloridaMan;
+namespace FloridaMan.Models;
 
 public record DisplayResult
 {
-    public string? Title { get; init; } = string.Empty;
+    public string Title { get; init; } = string.Empty;
     public string Link { get; init; } = string.Empty;
     public string? Snippet { get; init; } = string.Empty;
 
