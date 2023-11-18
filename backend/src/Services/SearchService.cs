@@ -1,26 +1,26 @@
 using FloridaMan.Models;
-using Google.Apis.CustomSearchAPI.v1;
 using Google.Apis.CustomSearchAPI.v1.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace FloridaMan.Services;
 
 public class SearchService : ISearchService
 {
-    private static CustomSearchAPIService? _googleService;
+    private readonly IQueryService _queryService;
 
-    public SearchService(CustomSearchAPIService service)
+    public SearchService(IQueryService queryService)
     {
-        _googleService = service;
+        _queryService = queryService;
     }
 
-    public List<DisplayResult> CrawlTodaysFloridaMan()
+    public async Task<List<DisplayResult>> CrawlTodaysFloridaMan()
     {
-        var search = ExecuteSearch($"florida+man+{DateTime.Today.Month.ToString().ToLower()}+{DateTime.Today.Day.ToString().ToLower()}");
+        var search = await _queryService.ExecuteQuery($"florida+man+{DateTime.Today.Month.ToString().ToLower()}+{DateTime.Today.Day.ToString().ToLower()}");
         var resultList = new List<DisplayResult>();
         foreach (var result in search)
         {
@@ -32,9 +32,9 @@ public class SearchService : ISearchService
         return FilterResults(resultList);
     }
 
-    public List<DisplayResult> CrawlDateFloridaMan(string month, string day)
+    public async Task<List<DisplayResult>> CrawlDateFloridaMan(string month, string day)
     {
-        var search = ExecuteSearch($"florida+man+{month.ToLower()}+{day.ToLower()}");
+        var search = await _queryService.ExecuteQuery($"florida+man+{month.ToLower()}+{day.ToLower()}");
         var resultList = new List<DisplayResult>();
 
         foreach (var result in search)
@@ -52,7 +52,7 @@ public class SearchService : ISearchService
         if (searchResult.Pagemap.TryGetValue("metatags", out var output) && output is not null)
         {
             var jsonResult = JsonConvert.SerializeObject(output);
-            var metaData = JsonConvert.DeserializeObject<List<Metatags>>(jsonResult)?.First();
+            var metaData = JsonConvert.DeserializeObject<List<Metatags>>(jsonResult)?.FirstOrDefault(new Metatags { Description = null, Image = null, Title = null});
             return new DisplayResult
             { 
                 Title = metaData?.Title ?? searchResult.Title,
@@ -68,15 +68,6 @@ public class SearchService : ISearchService
                 Link = searchResult.Link,
             };
         }
-    }
-
-    private static IList<Result> ExecuteSearch(string query)
-    {
-        var listRequest = _googleService!.Cse.List();
-        listRequest.Q = query;
-        listRequest.Num = 10;
-        listRequest.Cx = Environment.GetEnvironmentVariable("GoogleCXToken");
-        return listRequest.Execute().Items;
     }
 
     private static List<DisplayResult> FilterResults(List<DisplayResult> results)
@@ -96,9 +87,7 @@ public class SearchService : ISearchService
 
     private readonly static List<string> FilterTitles  = new()
     {
-        "birthday",
-        "...",
-        "(Published"
+        "birthday"
     };
 
     private readonly static List<Regex> FilterRegex = new()

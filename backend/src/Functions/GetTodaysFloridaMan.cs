@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FloridaMan.Functions;
 
@@ -18,11 +19,10 @@ public class GetTodaysFloridaMan
     }
 
     [FunctionName("GetTodaysFloridaMan")]
-    public IActionResult Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-        ILogger log)
+    public async Task<IActionResult> RunAsync(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
     {
-        var results = _searchService.CrawlTodaysFloridaMan();
+        var results = await _searchService.CrawlTodaysFloridaMan();
         return new OkObjectResult(results);
     }
 }

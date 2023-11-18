@@ -12,9 +12,10 @@ public class Startup: FunctionsStartup
 {
     public override void Configure(IFunctionsHostBuilder builder)
     {
-		builder.Services.AddSingleton<ISearchService, SearchService>(sp => 
+		builder.Services.AddSingleton<IQueryService, QueryService>(sp => 
 		{
-			return new SearchService(new CustomSearchAPIService(new BaseClientService.Initializer { ApiKey = Environment.GetEnvironmentVariable("GoogleAPIKey") }));
+			return new QueryService(new CustomSearchAPIService(new BaseClientService.Initializer { ApiKey = Environment.GetEnvironmentVariable("GoogleAPIKey") }));
 		});
+		builder.Services.AddScoped<ISearchService, SearchService>();
     }
 }

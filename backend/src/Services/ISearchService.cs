@@ -1,12 +1,14 @@
 using FloridaMan.Models;
+using Google.Apis.CustomSearchAPI.v1.Data;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace FloridaMan.Services;
 
 public interface ISearchService
 {
-    public List<DisplayResult> CrawlTodaysFloridaMan();
+    public Task<List<DisplayResult>> CrawlTodaysFloridaMan();
 
-    public List<DisplayResult> CrawlDateFloridaMan(string month, string day);
+    public Task<List<DisplayResult>> CrawlDateFloridaMan(string month, string day);
 }
