@@ -1,4 +1,4 @@
-name: Florida Man
+name: Test and Lint solution
 
 env:
   DOTNET_VERSION: "8.x"
