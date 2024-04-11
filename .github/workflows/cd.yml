@@ -32,6 +32,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: dotnet build and publish
+        working-directory: ${{ env.AZURE_APP_PACKAGE_PATH }}
         run: |
           dotnet restore
           dotnet build --configuration Release
