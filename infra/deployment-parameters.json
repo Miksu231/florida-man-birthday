@@ -13,6 +13,9 @@
     },
     "webAppName": {
       "value": "app-florida-man-birthday"
+    },
+    "resourceGroupName": {
+      "value": "florida-man-birthday"
     }
   }
 }
