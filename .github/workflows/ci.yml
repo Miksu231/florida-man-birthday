@@ -20,13 +20,13 @@ jobs:
           dotnet-version: |
             ${{ env.DOTNET_VERSION }}
       - name: "Resolve Project Dependencies Using Dotnet"
-        shell: pscore
+        shell: pwsh
         run: |
           pushd '${{ env.AZURE_APP_PACKAGE_PATH }}'
           dotnet build --configuration Release --output ./output
           popd
       - name: Run Tests
-        shell: pscore
+        shell: pwsh
         run: |
           pushd './backend/tests'
           dotnet build --no-incremental /p:TreatWarningsAsErrors="true"
@@ -45,9 +45,13 @@ jobs:
           node-version: latest
 
       - name: "Install frontend dependencies"
+        working-directory: ./frontend
         run: |
+          cd frontend
           npm install
 
       - name: "Lint frontend"
+        working-directory: ./frontend
         run: |
+          cd frontend
           npm run lint
