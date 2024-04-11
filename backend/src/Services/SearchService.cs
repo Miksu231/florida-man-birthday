@@ -82,12 +82,15 @@ public class SearchService : ISearchService
     private readonly static List<string> FilterURLs  = new()
     {
         "reddit",
-        "pinterest"
+        "pinterest",
+        "linkedin"
     };
 
     private readonly static List<string> FilterTitles  = new()
     {
-        "birthday"
+        "birthday",
+        "quiz",
+        "quiz:"
     };
 
     private readonly static List<Regex> FilterRegex = new()
