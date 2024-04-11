@@ -6,5 +6,5 @@ public record DisplayResult
     public string Link { get; init; } = string.Empty;
     public string? Snippet { get; init; } = string.Empty;
 
-    public string? ImageLink { get; init;}
+    public string? ImageLink { get; init; }
 }

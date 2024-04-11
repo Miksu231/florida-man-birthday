@@ -43,9 +43,9 @@ public partial class SearchService(IQueryService queryService) : ISearchService
         if (searchResult.Pagemap?.TryGetValue("metatags", out var output) ?? false && output is not null)
         {
             var jsonResult = JsonConvert.SerializeObject(output);
-            var metaData = JsonConvert.DeserializeObject<List<Metatags>>(jsonResult)?.FirstOrDefault(new Metatags { Description = null, Image = null, Title = null});
+            var metaData = JsonConvert.DeserializeObject<List<Metatags>>(jsonResult)?.FirstOrDefault(new Metatags { Description = null, Image = null, Title = null });
             return new DisplayResult
-            { 
+            {
                 Title = metaData?.Title ?? searchResult.Title,
                 Link = searchResult.Link,
                 ImageLink = metaData?.Image ?? "",
@@ -54,7 +54,8 @@ public partial class SearchService(IQueryService queryService) : ISearchService
         }
         else
         {
-            return new DisplayResult {
+            return new DisplayResult
+            {
                 Title = searchResult.Title,
                 Link = searchResult.Link,
             };
@@ -75,14 +76,14 @@ public partial class SearchService(IQueryService queryService) : ISearchService
     [GeneratedRegex(@"Published\s[0-9]{4}")]
     private static partial Regex PublishedRegex();
 
-    private readonly static List<string> FilterURLs  =
+    private readonly static List<string> FilterURLs =
     [
         "reddit",
         "pinterest",
         "linkedin"
     ];
 
-    private readonly static List<string> FilterTitles  =
+    private readonly static List<string> FilterTitles =
     [
         "birthday",
         "quiz",

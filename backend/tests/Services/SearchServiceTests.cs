@@ -2,7 +2,6 @@ using AutoFixture;
 using FloridaMan.Services;
 using Google.Apis.CustomSearchAPI.v1.Data;
 
-
 namespace FloridaMan.Tests.Services;
 
 public class SearchServiceTests
@@ -10,7 +9,7 @@ public class SearchServiceTests
     private readonly Fixture _fixture = new();
     private readonly ISearchService _searchService;
     private readonly Mock<IQueryService> _mockQueryService = new();
-    
+
     public SearchServiceTests()
     {
         _searchService = new SearchService(_mockQueryService.Object);
@@ -50,7 +49,7 @@ public class SearchServiceTests
             .With(x => x.Title, RandomString(10))
             .With(x => x.Snippet, RandomString(30))
             .With(x => x.Link, RandomString(40))
-            .With(x => x.Pagemap, new Dictionary<string, object>{{"metatags", new List<object>{new(){}}}})
+            .With(x => x.Pagemap, new Dictionary<string, object> { { "metatags", new List<object> { new() { } } } })
             .CreateMany(amount);
 
         if (addFilterableResults)

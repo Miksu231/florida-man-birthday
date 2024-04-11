@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options => options.AddDefaultPolicy(
-    policy => {
+    policy =>
+    {
         var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>()!;
         policy.SetIsOriginAllowedToAllowWildcardSubdomains()
             .WithOrigins(allowedOrigins)
@@ -14,7 +15,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
             .AllowAnyHeader();
     }));
 
-builder.Services.AddSingleton<IQueryService, QueryService>(sp => 
+builder.Services.AddSingleton<IQueryService, QueryService>(sp =>
 {
     return new QueryService(new CustomSearchAPIService(new BaseClientService.Initializer { ApiKey = Environment.GetEnvironmentVariable("GoogleAPIKey") }));
 });

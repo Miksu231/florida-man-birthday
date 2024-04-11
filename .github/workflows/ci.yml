@@ -47,11 +47,9 @@ jobs:
       - name: "Install frontend dependencies"
         working-directory: ./frontend
         run: |
-          cd frontend
           npm install
 
       - name: "Lint frontend"
         working-directory: ./frontend
         run: |
-          cd frontend
           npm run lint

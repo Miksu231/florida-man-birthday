@@ -7,7 +7,7 @@ using Google.Apis.CustomSearchAPI.v1.Data;
 
 namespace FloridaMan.Services;
 
-public class QueryService: IQueryService
+public class QueryService : IQueryService
 {
     private static CustomSearchAPIService? _googleService;
 
@@ -24,4 +24,4 @@ public class QueryService: IQueryService
         listRequest.Cx = Environment.GetEnvironmentVariable("GoogleCXToken");
         return (await listRequest.ExecuteAsync()).Items.ToList();
     }
-} 
+}

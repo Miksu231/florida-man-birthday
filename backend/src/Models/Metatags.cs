@@ -10,5 +10,5 @@ public record Metatags
     public string? Title { get; init; }
     [JsonProperty("og:description")]
     public string? Description { get; init; }
-    
+
 }
