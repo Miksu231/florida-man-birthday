@@ -50,5 +50,5 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_TOKEN }}
           action: "upload"
-          output_location: "frontend/dist"
+          output_location: "dist"
           app_location: "frontend"
