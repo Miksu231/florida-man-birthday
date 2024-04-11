@@ -7,6 +7,7 @@ function App() {
   const [tab, setTab] = useState(0)
   return (
     <div>
+      <h1>Find your Florida Man</h1>
       <Header tab={tab} setTab={setTab} />
       {!tab && <TodayTab />}
       {!!tab && <PickedDateTab />}

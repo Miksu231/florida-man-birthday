@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Google.Apis.CustomSearchAPI.v1.Data;
+
+namespace FloridaMan.Services;
 
 public interface IQueryService
 {

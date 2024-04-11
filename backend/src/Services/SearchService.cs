@@ -1,22 +1,13 @@
 using FloridaMan.Models;
 using Google.Apis.CustomSearchAPI.v1.Data;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FloridaMan.Services;
 
-public class SearchService : ISearchService
+public partial class SearchService(IQueryService queryService) : ISearchService
 {
-    private readonly IQueryService _queryService;
-
-    public SearchService(IQueryService queryService)
-    {
-        _queryService = queryService;
-    }
+    private readonly IQueryService _queryService = queryService;
 
     public async Task<List<DisplayResult>> CrawlTodaysFloridaMan()
     {
@@ -49,7 +40,7 @@ public class SearchService : ISearchService
 
     private static DisplayResult ExtractMetadata(Result searchResult)
     {
-        if (searchResult.Pagemap.TryGetValue("metatags", out var output) && output is not null)
+        if (searchResult.Pagemap?.TryGetValue("metatags", out var output) ?? false && output is not null)
         {
             var jsonResult = JsonConvert.SerializeObject(output);
             var metaData = JsonConvert.DeserializeObject<List<Metatags>>(jsonResult)?.FirstOrDefault(new Metatags { Description = null, Image = null, Title = null});
@@ -79,23 +70,28 @@ public class SearchService : ISearchService
             .ToList();
     }
 
-    private readonly static List<string> FilterURLs  = new()
-    {
+    [GeneratedRegex(@"\.\.\.")]
+    private static partial Regex ThreedotRegex();
+    [GeneratedRegex(@"Published\s[0-9]{4}")]
+    private static partial Regex PublishedRegex();
+
+    private readonly static List<string> FilterURLs  =
+    [
         "reddit",
         "pinterest",
         "linkedin"
-    };
+    ];
 
-    private readonly static List<string> FilterTitles  = new()
-    {
+    private readonly static List<string> FilterTitles  =
+    [
         "birthday",
         "quiz",
         "quiz:"
-    };
+    ];
 
-    private readonly static List<Regex> FilterRegex = new()
-    {
-        new Regex(@"\.\.\."),
-        new Regex(@"Published\s[0-9]{4}")
-    };
+    private readonly static List<Regex> FilterRegex =
+    [
+        ThreedotRegex(),
+        PublishedRegex()
+    ];
 }

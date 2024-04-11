@@ -7,11 +7,15 @@ interface HeaderProps {
 }
 
 export const Header = ({ tab, setTab }: HeaderProps) => {
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (newValue: number) => {
     setTab(newValue)
   }
   return (
-    <Tabs value={tab} onChange={handleChange} aria-label="tabs">
+    <Tabs
+      value={tab}
+      onChange={(_, value) => handleChange(value)}
+      aria-label="tabs"
+    >
       <Tab label="Today" />
       <Tab label="Pick a date" />
     </Tabs>

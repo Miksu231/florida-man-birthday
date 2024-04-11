@@ -1,0 +1,53 @@
+name: Florida Man
+
+env:
+  DOTNET_VERSION: "8.x"
+  AZURE_APP_PACKAGE_PATH: "backend/src"
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout GitHub Actions"
+        uses: actions/checkout@v3
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: |
+            ${{ env.DOTNET_VERSION }}
+      - name: "Resolve Project Dependencies Using Dotnet"
+        shell: pscore
+        run: |
+          pushd '${{ env.AZURE_APP_PACKAGE_PATH }}'
+          dotnet build --configuration Release --output ./output
+          popd
+      - name: Run Tests
+        shell: pscore
+        run: |
+          pushd './backend/tests'
+          dotnet build --no-incremental /p:TreatWarningsAsErrors="true"
+          dotnet test --no-restore --verbosity normal
+          popd
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout GitHub Actions"
+        uses: actions/checkout@v3
+
+      - name: "Install node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: "Install frontend dependencies"
+        run: |
+          npm install
+
+      - name: "Lint frontend"
+        run: |
+          npm run lint

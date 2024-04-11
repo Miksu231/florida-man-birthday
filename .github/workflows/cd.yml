@@ -1,0 +1,53 @@
+name: Push app to production
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: "8.x"
+  AZURE_APP_PACKAGE_PATH: "backend/src"
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy backend resources
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: infra/deploy-backend.bicep
+          parameters: infra/deployment-parameters.json
+          failOnStdErr: false
+          scope: "resourcegroup"
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: dotnet build and publish
+        run: |
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_APP_PACKAGE_PATH }}/myapp'
+
+      - name: Deploy backend content
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: app-florida-man-birthday
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: "${{ env.AZURE_APP_PACKAGE_PATH }}/myapp"
+
+      - name: Deploy static web app content
+        uses: azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_TOKEN }}
+          action: "upload"
+          output_location: "frontend/dist"
+          app_location: "frontend"
