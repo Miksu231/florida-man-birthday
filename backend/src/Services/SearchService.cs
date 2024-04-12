@@ -65,8 +65,6 @@ public partial class SearchService(IQueryService queryService) : ISearchService
     private static List<DisplayResult> FilterResults(List<DisplayResult> results)
     {
         return results
-            .Where(result => !result.Title.Split(" ").Intersect(FilterTitles, StringComparer.OrdinalIgnoreCase).Any())
-            .Where(result => !result.Link.Split(".").Intersect(FilterURLs, StringComparer.OrdinalIgnoreCase).Any())
             .Where(result => !FilterRegex.Any(regex => regex.IsMatch(result.Title)))
             .ToList();
     }
@@ -75,20 +73,6 @@ public partial class SearchService(IQueryService queryService) : ISearchService
     private static partial Regex ThreedotRegex();
     [GeneratedRegex(@"Published\s[0-9]{4}")]
     private static partial Regex PublishedRegex();
-
-    private readonly static List<string> FilterURLs =
-    [
-        "reddit",
-        "pinterest",
-        "linkedin"
-    ];
-
-    private readonly static List<string> FilterTitles =
-    [
-        "birthday",
-        "quiz",
-        "quiz:"
-    ];
 
     private readonly static List<Regex> FilterRegex =
     [
