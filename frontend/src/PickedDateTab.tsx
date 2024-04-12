@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import CircularProgress from "@mui/material/CircularProgress"
 import * as ajaxService from "./services/ajaxService"
 import { NewsItem } from "./components/NewsItem"
 import { LocalizationProvider } from "@mui/x-date-pickers"
@@ -23,7 +22,7 @@ export const PickedDateTab = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      var response = await ajaxService.getDateFloridaMan(selectedDate)
+      const response = await ajaxService.getDateFloridaMan(selectedDate)
       if (!response.message) {
         setData(response)
       } else {

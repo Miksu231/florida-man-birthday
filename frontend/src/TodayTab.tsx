@@ -17,7 +17,7 @@ export const TodayTab = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      var response = await ajaxService.getTodayFloridaMan()
+      const response = await ajaxService.getTodayFloridaMan()
       if (!response.message) {
         setData(response)
       } else {
