@@ -10,7 +10,7 @@ The backend has been implemented as a [ASP.NET Core](https://dotnet.microsoft.co
 
 ## Frontend
 
-The frontend is written in TypeScript using React. It consists of both custom-made components as well as imported components from [Material UI](https://mui.com/).The frontend uses [Vite](https://vitejs.dev/) with [SWC](https://swc.rs/) during runtime.
+The frontend is written in TypeScript using React. It consists of both custom-made components as well as imported components from [Material UI](https://mui.com/).The frontend uses [Vite](https://vitejs.dev/) with [SWC](https://swc.rs/) to build an optimize the app for deployment.
 
 ## Deployed architecture
 
@@ -31,7 +31,7 @@ Frontend uses Eslint for linting code.
 The CI/CD pipelines are utilizing GitHub Actions for running CI automatically on any pushes to the main branch and CD is triggered manually.
 
 - The CI pipeline runs all tests for the repository and lints the frontend.
-- The CD pipeline builds and publishes the frontend and backend separately, deployes the Azure resources with the IaC template and deploys the backend and frontend published packages to the Azure App Service and Static Web Site respectively.
+- The CD pipeline builds and publishes the frontend and backend separately, deploys the Azure resources with the IaC template and deploys the backend and frontend published packages to Azure App Service and Azure Static Web App respectively.
 
 ## Tests
 
