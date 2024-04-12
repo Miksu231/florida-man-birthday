@@ -6,6 +6,7 @@ interface NewsItemProps {
   link: string
   snippet: string | undefined
   imageLink: string | undefined
+  errorMessage: string | undefined
 }
 
 export const NewsItem = ({
@@ -13,6 +14,7 @@ export const NewsItem = ({
   link,
   snippet,
   imageLink,
+  errorMessage,
 }: NewsItemProps) => {
   const [isLoaded, setIsLoaded] = useState(false)
   return (
@@ -20,7 +22,10 @@ export const NewsItem = ({
       <div className="mt-8 h-12">
         <h2 className="text-slate-800 mb-8">{title}</h2>
       </div>
-      {!isLoaded && <CircularProgress sx={{ margin: "auto" }} />}
+      {!isLoaded && !errorMessage && (
+        <CircularProgress sx={{ margin: "auto" }} />
+      )}
+      {errorMessage && <p className="text-red-600">{errorMessage}</p>}
       {imageLink && (
         <div className="p-8 bg-gray-100 border-2 border-slate-300 mx-auto w-5/6 h-96 justify-center content-center rounded">
           <img

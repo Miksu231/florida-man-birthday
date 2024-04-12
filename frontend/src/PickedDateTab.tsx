@@ -17,12 +17,18 @@ interface NewsItem {
 
 export const PickedDateTab = () => {
   const [data, setData] = useState<NewsItem[]>([])
+  const [errorMessage, setErrorMessage] = useState(undefined)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date()))
 
   useEffect(() => {
     const fetchData = async () => {
-      setData(await ajaxService.getDateFloridaMan(selectedDate))
+      var response = await ajaxService.getDateFloridaMan(selectedDate)
+      if (!response.message) {
+        setData(response)
+      } else {
+        setErrorMessage(response.message)
+      }
     }
     fetchData()
   }, [selectedDate])
@@ -56,13 +62,13 @@ export const PickedDateTab = () => {
         </LocalizationProvider>
       </div>
       <div>
-        {!data && <CircularProgress />}
         {data && (
           <NewsItem
             title={data[currentIndex]?.title ?? "No title found"}
             link={data[currentIndex]?.link ?? ""}
             imageLink={data[currentIndex]?.imageLink}
             snippet={data[currentIndex]?.snippet}
+            errorMessage={errorMessage}
           />
         )}
       </div>

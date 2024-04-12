@@ -1,5 +1,7 @@
+using System.Net;
 using FloridaMan.Models;
 using FloridaMan.Services;
+using Google;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FloridaMan.Controllers;
@@ -12,8 +14,15 @@ public class FloridaManController(ISearchService searchService) : ControllerBase
     [HttpPost("today")]
     public async Task<IActionResult> GetTodaysFloridaMan()
     {
-        var results = await _searchService.CrawlTodaysFloridaMan();
-        return Ok(results);
+        try
+        {
+            var results = await _searchService.CrawlTodaysFloridaMan();
+            return Ok(results);
+        }
+        catch (GoogleApiException e) when (e.HttpStatusCode == HttpStatusCode.TooManyRequests)
+        {
+            return new ConflictResult();
+        }
     }
 
     [HttpPost("date")]
@@ -24,7 +33,14 @@ public class FloridaManController(ISearchService searchService) : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var results = await _searchService.CrawlDateFloridaMan(dateDto.Month, dateDto.Day);
-        return Ok(results);
+        try
+        {
+            var results = await _searchService.CrawlDateFloridaMan(dateDto.Month, dateDto.Day);
+            return Ok(results);
+        }
+        catch (GoogleApiException e) when (e.HttpStatusCode == HttpStatusCode.TooManyRequests)
+        {
+            return new ConflictResult();
+        }
     }
 }

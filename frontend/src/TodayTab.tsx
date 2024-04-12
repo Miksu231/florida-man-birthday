@@ -12,11 +12,17 @@ interface NewsItem {
 
 export const TodayTab = () => {
   const [data, setData] = useState<NewsItem[]>([])
+  const [errorMessage, setErrorMessage] = useState(undefined)
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
-      setData(await ajaxService.getTodayFloridaMan())
+      var response = await ajaxService.getTodayFloridaMan()
+      if (!response.message) {
+        setData(response)
+      } else {
+        setErrorMessage(response.message)
+      }
     }
     fetchData()
   }, [])
@@ -45,6 +51,7 @@ export const TodayTab = () => {
           link={data[currentIndex]?.link ?? ""}
           imageLink={data[currentIndex]?.imageLink}
           snippet={data[currentIndex]?.snippet}
+          errorMessage={errorMessage}
         />
       )}
       <NavigationArrows

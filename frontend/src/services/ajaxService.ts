@@ -7,6 +7,13 @@ export const getTodayFloridaMan = async () => {
       method: "POST",
     }
   )
+
+  if (response.status === 409) {
+    return {
+      message: "Google API Daily Quota exceeded, please try again tomorrow ",
+    }
+  }
+
   return await response.json()
 }
 
@@ -22,5 +29,10 @@ export const getDateFloridaMan = async (date: Dayjs) => {
       }),
     }
   )
+  if (response.status === 409) {
+    return {
+      message: "Google API Daily Quota exceeded, please try again tomorrow ",
+    }
+  }
   return await response.json()
 }
