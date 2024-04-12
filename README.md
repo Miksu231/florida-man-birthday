@@ -6,7 +6,7 @@ Florida Man Birthday is a small full-stack application, that uses a [Google prog
 
 ## Backend
 
-The backend has been implemented as a [ASP.NET Core](https://dotnet.microsoft.com/en-us/apps/aspnet) web application running on .NET 8. The backend controls performing searches for the Google's programmable search engine and performs regular expression filtering on the results to only show desirable article-type results. The backend can be started with `dotnet run --project backend/src`. For running the backend locally, a `.env` file is required in the `backend` directory with your Google programmable search engine API key on the first row and the CX token on the second row.
+The backend has been implemented as a [ASP.NET Core](https://dotnet.microsoft.com/en-us/apps/aspnet) web application running on .NET 8. The backend controls performing searches for the Google's programmable search engine and performs regular expression filtering on the results to only show desirable article-type results. The backend can be started with `dotnet run --project backend/src`. For running the backend locally, a `.env` file is required in the `backend/src` directory with your Google programmable search engine API key on the first row and the CX token on the second row.
 
 ## Frontend
 
