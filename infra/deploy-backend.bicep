@@ -3,6 +3,7 @@ param appServicePlanName string
 param webAppName string 
 param dotnetEnvironment string
 param resourceGroupName string
+param allowedOrigin string
 
 var serviceName = 'florida-man-birthday'
 
@@ -33,6 +34,9 @@ resource webApp 'Microsoft.Web/sites@2023-01-01' = {
     enabled: true
     httpsOnly: true
     siteConfig: {
+      cors: {
+        allowedOrigins: [allowedOrigin]
+      }
       netFrameworkVersion: 'v8.0'
       appSettings: [
         {

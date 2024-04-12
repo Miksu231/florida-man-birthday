@@ -16,6 +16,9 @@
     },
     "resourceGroupName": {
       "value": "florida-man-birthday"
+    },
+    "allowedOrigin": {
+      "value": "https://brave-meadow-0d5c67f03.5.azurestaticapps.net"
     }
   }
 }
