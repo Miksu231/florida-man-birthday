@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import CircularProgress from "@mui/material/CircularProgress"
 import * as ajaxService from "./services/ajaxService"
 import { NewsItem } from "./components/NewsItem"
 import { NavigationArrows } from "./components/NavigationArrows"
@@ -40,17 +39,14 @@ export const TodayTab = () => {
 
   return (
     <>
-      <div>
-        {!data && <CircularProgress />}
-        {data && (
-          <NewsItem
-            title={data[currentIndex]?.title ?? "No title found"}
-            link={data[currentIndex]?.link ?? ""}
-            imageLink={data[currentIndex]?.imageLink}
-            snippet={data[currentIndex]?.snippet}
-          />
-        )}
-      </div>
+      {data && (
+        <NewsItem
+          title={data[currentIndex]?.title ?? "No title found"}
+          link={data[currentIndex]?.link ?? ""}
+          imageLink={data[currentIndex]?.imageLink}
+          snippet={data[currentIndex]?.snippet}
+        />
+      )}
       <NavigationArrows increment={incrementIndex} decrement={decrementIndex} />
     </>
   )

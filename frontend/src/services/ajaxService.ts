@@ -2,7 +2,7 @@ import { Dayjs } from "dayjs"
 
 export const getTodayFloridaMan = async () => {
   const response = await fetch(
-    new URL(`${import.meta.env.APIROOT}/floridaman/today`),
+    new URL(`${import.meta.env.VITE_APIROOT}/floridaman/today`),
     {
       method: "POST",
     }
@@ -12,10 +12,14 @@ export const getTodayFloridaMan = async () => {
 
 export const getDateFloridaMan = async (date: Dayjs) => {
   const response = await fetch(
-    new URL(`${import.meta.env.APIROOT}/floridaman/date`),
+    new URL(`${import.meta.env.VITE_APIROOT}/floridaman/date`),
     {
       method: "POST",
-      body: JSON.stringify({ day: date.date(), month: date.month() }),
+      headers: new Headers({ "content-type": "application/json" }),
+      body: JSON.stringify({
+        day: date.date().toString(),
+        month: date.format("MMMM"),
+      }),
     }
   )
   return await response.json()

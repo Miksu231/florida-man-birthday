@@ -20,7 +20,13 @@ public class QueryService : IQueryService
         "quiz",
         "quiz:",
         "Frequently Asked Questions",
-        "Assess"
+        "Assess",
+        "Basketball",
+        "Football",
+        "Sports",
+        "Soccer",
+        "Athletics",
+        "Tennis",
     ];
 
     private static string ConcatFiltersToQuery()
@@ -33,7 +39,6 @@ public class QueryService : IQueryService
             builder.Append(filterTitle);
             builder.Append('"');
         }
-        Console.WriteLine(builder.ToString());
         return builder.ToString();
     }
 

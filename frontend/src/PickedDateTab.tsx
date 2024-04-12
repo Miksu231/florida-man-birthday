@@ -51,6 +51,7 @@ export const PickedDateTab = () => {
             label="Select a date"
             value={selectedDate}
             onChange={(newValue) => setSelectedDate(newValue as Dayjs)}
+            views={["month", "day"]}
           />
         </LocalizationProvider>
       </div>

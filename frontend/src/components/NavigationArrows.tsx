@@ -9,13 +9,23 @@ interface NavigationProps {
 
 export const NavigationArrows = ({ increment, decrement }: NavigationProps) => {
   return (
-    <div>
-      <IconButton onClick={decrement} size="small">
+    <div className="flex flex-row rounded border-2 border-slate-300 text-center justify-center mx-auto w-40 mt-4">
+      <IconButton
+        onClick={decrement}
+        size="small"
+        className="rounded border-slate-300 inline-block"
+        sx={{ borderRightWidth: 2, borderColor: "black", paddingRight: 1 }}
+      >
         <img src={backArrow} alt="back arrow" />
-        <p>Previous</p>
+        <p className="text-sm font-semibold text-blue-900">Previous</p>
       </IconButton>
-      <IconButton onClick={increment} size="small">
-        <p>Next</p>
+      <IconButton
+        onClick={increment}
+        size="small"
+        className="rounder border-slate-300 inline-block"
+        sx={{ borderLeftWidth: 2, borderColor: "black", paddingLeft: 1 }}
+      >
+        <p className="text-sm font-semibold text-blue-900">Next</p>
         <img src={forwardArrow} alt="forward arrow" />
       </IconButton>
     </div>
