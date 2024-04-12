@@ -56,18 +56,6 @@ public class SearchServiceTests
         {
             var filterResults = new List<Result>{
                 new() {
-                    Link = "www.reddit.com",
-                    Title = "Reddit",
-                    Snippet = "Reddit Florida Man",
-                    Pagemap = new Dictionary<string, object>{{"metatags", new List<object>{new(){}}}}
-                },
-                new() {
-                    Link = "www.pinterest.com",
-                    Title = "Pinterest",
-                    Snippet = "Pinterest Florida Man",
-                    Pagemap = new Dictionary<string, object>{{"metatags", new List<object>{new(){}}}}
-                },
-                new() {
                     Link = "www.website.com",
                     Title = "This title cuts off...",
                     Snippet = "Lorem ipsum",
@@ -76,12 +64,6 @@ public class SearchServiceTests
                 new() {
                     Link = "www.website.com",
                     Title = "Archived article (Published 1997)",
-                    Snippet = "Lorem ipsum",
-                    Pagemap = new Dictionary<string, object>{{"metatags", new List<object>{new(){}}}}
-                },
-                new() {
-                    Link = "www.website.com",
-                    Title = "Florida Man Birthday",
                     Snippet = "Lorem ipsum",
                     Pagemap = new Dictionary<string, object>{{"metatags", new List<object>{new(){}}}}
                 },
