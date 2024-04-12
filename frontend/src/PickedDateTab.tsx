@@ -66,7 +66,12 @@ export const PickedDateTab = () => {
           />
         )}
       </div>
-      <NavigationArrows increment={incrementIndex} decrement={decrementIndex} />
+      <NavigationArrows
+        increment={incrementIndex}
+        decrement={decrementIndex}
+        index={currentIndex}
+        maxIndex={data.length - 1}
+      />
     </>
   )
 }

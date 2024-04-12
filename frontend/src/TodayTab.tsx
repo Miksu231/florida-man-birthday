@@ -47,7 +47,12 @@ export const TodayTab = () => {
           snippet={data[currentIndex]?.snippet}
         />
       )}
-      <NavigationArrows increment={incrementIndex} decrement={decrementIndex} />
+      <NavigationArrows
+        increment={incrementIndex}
+        decrement={decrementIndex}
+        index={currentIndex}
+        maxIndex={data.length - 1}
+      />
     </>
   )
 }
