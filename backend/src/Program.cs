@@ -1,3 +1,4 @@
+using FloridaMan.Middlewares;
 using FloridaMan.Services;
 using Google.Apis.CustomSearchAPI.v1;
 using Google.Apis.Services;
@@ -21,6 +22,8 @@ builder.Services.AddSingleton<IQueryService, QueryService>(sp =>
 });
 builder.Services.AddScoped<ISearchService, SearchService>();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddControllers();
 
 builder.Services.AddProblemDetails();
@@ -37,6 +40,7 @@ else
 {
     app.UseStatusCodePages();
 }
+app.UseMiddleware<RequestBodyCachingMiddleware>();
 
 app.UseCors();
 app.MapControllers();
