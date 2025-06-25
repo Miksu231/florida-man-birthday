@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using FloridaMan.Middlewares;
 using FloridaMan.Services;
 using Google.Apis.CustomSearchAPI.v1;
@@ -44,6 +45,15 @@ app.UseMiddleware<RequestBodyCachingMiddleware>();
 
 app.UseCors();
 app.MapControllers();
+
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+foreach (var endpoint in app.Services
+    .GetRequiredService<EndpointDataSource>()
+    .Endpoints
+    .OfType<RouteEndpoint>())
+{
+    logger.LogInformation("Route: {Route}", endpoint.RoutePattern.RawText);
+}
 
 app.UseHsts();
 
