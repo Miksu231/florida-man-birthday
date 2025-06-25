@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
-      "value": "WestEurope"
+      "value": "NorthEurope"
     },
     "appServicePlanName": {
-      "value": "ASP-floridamanbirthday-b8b9"
+      "value": "ASP-floridamanbirthday"
     },
     "dotnetEnvironment": {
       "value": "Production"
@@ -18,7 +18,7 @@
       "value": "florida-man-birthday"
     },
     "allowedOrigin": {
-      "value": "https://brave-meadow-0d5c67f03.5.azurestaticapps.net"
+      "value": "https://ambitious-sand-035e9fd03.1.azurestaticapps.net"
     }
   }
 }
