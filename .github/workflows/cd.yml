@@ -42,13 +42,13 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_APP_PACKAGE_PATH }}'
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_APP_PACKAGE_PATH }}/floridaman'
 
       - name: Deploy backend content
         uses: azure/webapps-deploy@v3
         with:
           app-name: app-florida-man-birthday
-          package: "backend/src/${{ env.AZURE_APP_PACKAGE_PATH }}"
+          package: "${{ env.AZURE_APP_PACKAGE_PATH }}/floridaman"
 
       - name: Deploy static web app content
         uses: azure/static-web-apps-deploy@v1
