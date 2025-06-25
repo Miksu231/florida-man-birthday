@@ -27,6 +27,7 @@ public class QueryService : IQueryService
         "Soccer",
         "Athletics",
         "Tennis",
+        "Florida Has a Right to Know"
     ];
 
     private static string ConcatFiltersToQuery()
