@@ -14,7 +14,7 @@ The frontend is written in TypeScript using React. It consists of both custom-ma
 
 ## Deployed architecture
 
-The application is deployed on Microsoft Azure, with the backend utilizing an Azure App Service for hosting the ASP.NET Core application. The React frontend is pushed to an Azure Static Web App. The website can be found at [https://brave-meadow-0d5c67f03.5.azurestaticapps.net/](https://brave-meadow-0d5c67f03.5.azurestaticapps.net/)
+The application is deployed on Microsoft Azure, with the backend utilizing an Azure App Service for hosting the ASP.NET Core application. The React frontend is pushed to an Azure Static Web App. The website can be found at [https://ambitious-sand-035e9fd03.1.azurestaticapps.net](https://ambitious-sand-035e9fd03.1.azurestaticapps.net)
 
 ## Infra-as-code
 
