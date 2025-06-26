@@ -46,23 +46,6 @@ app.UseMiddleware<RequestBodyCachingMiddleware>();
 app.UseCors();
 app.MapControllers();
 
-app.Use(async (context, next) => {
-  Console.WriteLine(context.Request.Path);
-  if (context.Request.Path == "/debug-routes") {
-    EndpointDataSource? endpointDataSource = context.RequestServices.GetService<EndpointDataSource>();
-    List<string?>? routes = endpointDataSource?.Endpoints.OfType<RouteEndpoint>()
-      .Where(e => e.RoutePattern.RawText is not null
-                  && !e.RoutePattern.RawText.StartsWith("_framework") 
-                  && !e.RoutePattern.RawText.StartsWith("_content")
-                  && !e.RoutePattern.RawText.StartsWith("/_blazor"))
-      .Select(e => e.RoutePattern.RawText)
-      .ToList();
-    await context.Response.WriteAsync(string.Join("\n", routes ?? []));
-    return;
-  }
-  await next();
-});
-
 app.UseHsts();
 
 app.Run();

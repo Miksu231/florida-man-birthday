@@ -50,7 +50,7 @@ resource webApp 'Microsoft.Web/sites@2023-01-01' = {
   resource stack 'config@2023-01-01' = {
     name: 'metadata'
     properties: {
-      CURRENT_STACK: 'dotnet'
+      CURRENT_STACK: 'dotnetcore'
     }
   }
 }
